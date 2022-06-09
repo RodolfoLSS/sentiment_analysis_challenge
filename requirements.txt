@@ -1,0 +1,5 @@
+scikit-multilearn
+numpy
+scipy
+sklearn
+joblib
