@@ -111,7 +111,7 @@ def wipe():
 if __name__ == "__main__":
     try:
         port = int(sys.argv[1])
-    except Exception as e:
+    except Exception:
         port = 80
 
     try:
