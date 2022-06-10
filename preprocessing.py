@@ -53,8 +53,7 @@ def stem(token):
     return stem_token
 
 
-def preprocess_input(df: pd.DataFrame):
-    df.columns = ["user_id", "game", "sentiment", "comment"]
+def decode_sentiment(df):
     df["positive"] = 0
     df["negative"] = 0
     df["neutral"] = 0
@@ -64,6 +63,10 @@ def preprocess_input(df: pd.DataFrame):
     df.loc[df["sentiment"].str.lower() == "neutral", ["neutral"]] = 1
     df.loc[df["sentiment"].str.lower() == "irrelevant", ["irrelevant"]] = 1
 
+    return df
+
+
+def preprocess_comment(df: pd.DataFrame):
     df.comment = df.comment.apply(lambda x: decontract(str(x)))
     df.comment = df.comment.apply(remove_stop_words)
     df.comment = df.comment.apply(remove_punctuation)
