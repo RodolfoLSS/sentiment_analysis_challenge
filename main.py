@@ -10,7 +10,7 @@ import pandas as pd
 import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from preprocessing import preprocess_comment, decode_sentiment
+from modules.preprocessing import preprocess_comment, decode_sentiment
 
 app = Flask(__name__)
 

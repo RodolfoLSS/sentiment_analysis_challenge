@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 from nltk.stem.snowball import SnowballStemmer
-from utils import stopwords
+from modules.utils import stopwords
 
 stemmer = SnowballStemmer("english")
 
