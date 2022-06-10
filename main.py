@@ -4,6 +4,7 @@ import shutil
 import time
 import traceback
 import json
+import pickle
 
 from flask import Flask, request, jsonify
 import pandas as pd
@@ -21,7 +22,6 @@ dependent_variable = include[-1]
 
 model_directory = "model"
 model_file_name = "%s/model.pkl" % model_directory
-model_columns_file_name = "%s/model_columns.pkl" % model_directory
 
 vectorizer = TfidfVectorizer(min_df=0.00009, smooth_idf=True, norm="l2")
 
@@ -88,11 +88,20 @@ def train():
     start = time.time()
     clf.fit(X_train, y_train)
 
-    joblib.dump(clf, model_file_name)
+    pickle.dump(clf, open(model_file_name, "wb"))
+    # joblib.dump(clf, model_file_name)
 
     message1 = "Trained in %.5f seconds" % (time.time() - start)
     message2 = "Model training score: %s" % clf.score(X_train, y_train)
     return_message = "Success. \n{0}. \n{1}.".format(message1, message2)
+    return return_message
+
+
+@app.route("/load", methods=["GET"])
+def load():
+    global clf
+    clf = pickle.load(open(model_file_name, "rb"))
+    return_message = "Success loading model."
     return return_message
 
 
@@ -117,8 +126,6 @@ if __name__ == "__main__":
     try:
         clf = joblib.load(model_file_name)
         print("model loaded")
-        model_columns = joblib.load(model_columns_file_name)
-        print("model columns loaded")
 
     except Exception as e:
         print("No model here")
