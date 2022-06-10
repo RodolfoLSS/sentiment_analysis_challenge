@@ -17,7 +17,7 @@ def remove_stop_words(sentence):
 
 
 def remove_numbers(sentence):
-    sentence = re.sub("\S*\d\S*", " ", sentence).strip()
+    sentence = re.sub(r"\S*\d\S*", " ", sentence).strip()
     return sentence
 
 

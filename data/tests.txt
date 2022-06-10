@@ -1,0 +1,6 @@
+curl -H 'Content-Type: application/json' -d '[{"comment": "this game is unbelivable"},{"comment": "I want this game"}]' \
+    -X POST http://localhost:7070/predict && echo -e "\n -> predict OK"
+
+curl -H 'Content-Type: application/json' -d \
+    '[{"comment": "this game is unbelivable"},{"comment": "I want this game"}, {"user_id":"2401","game": "sdfsdf","comment": "this game is terrible"}]' \
+    -X POST http://localhost:7070/predict && echo -e "\n -> predict OK"
