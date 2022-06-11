@@ -181,3 +181,30 @@ stopwords = set(
         "wouldn't",
     ]
 )
+
+
+def encode_sentiment(df):
+    df["positive"] = 0
+    df["negative"] = 0
+    df["neutral"] = 0
+    df["irrelevant"] = 0
+    df.loc[df["sentiment"].str.lower() == "positive", ["positive"]] = 1
+    df.loc[df["sentiment"].str.lower() == "negative", ["negative"]] = 1
+    df.loc[df["sentiment"].str.lower() == "neutral", ["neutral"]] = 1
+    df.loc[df["sentiment"].str.lower() == "irrelevant", ["irrelevant"]] = 1
+
+    return df
+
+
+def decode_sentiment(sentiments: list):
+    predictions_decoded = []
+    for sentiment in sentiments:
+        if sentiment[0]:
+            predictions_decoded.append("positive")
+        elif sentiment[1]:
+            predictions_decoded.append("negative")
+        elif sentiment[2]:
+            predictions_decoded.append("neutral")
+        else:
+            predictions_decoded.append("irrelevant")
+    return predictions_decoded
