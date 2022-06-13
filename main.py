@@ -68,15 +68,14 @@ def train():
     X_train = vectorizer.fit_transform(X_train)
 
     global clf
-    clf = OneVsRestClassifier(LogisticRegression(class_weight="balanced"), n_jobs=-1)
+    clf = OneVsRestClassifier(LogisticRegression(class_weight="balanced", C=100), n_jobs=-1)
     start = time.time()
     clf.fit(X_train, y_train)
 
     pickle.dump(clf, open(model_file_name, "wb"))
 
-    message1 = "Trained in %.5f seconds" % (time.time() - start)
-    message2 = "Model training score: %s" % clf.score(X_train, y_train)
-    return_message = "Success. \n{0}. \n{1}.".format(message1, message2)
+    message1 = "Trained in %.5f seconds\n" % (time.time() - start)
+    return_message = "Success. \n{0}.".format(message1)
     return return_message
 
 
